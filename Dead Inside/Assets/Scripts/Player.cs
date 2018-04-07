@@ -58,39 +58,48 @@ public class Player : MonoBehaviour
     #region FixedUpdate
     // Update is called once per frame
     void FixedUpdate()// tem uma atualização mais constante do que o Update comum
-    {
+    { //chamada das funções a serem executadas a cada update
         float horizontal = Input.GetAxis("Horizontal");// atribui o eixo X a variavel horizontal
 
-        //chamada das funções a serem executadas a cada update
+        isGrounded = IsGrounded();
+        
         HandleMovement(horizontal);
 
-        Flip(horizontal);
+        HandleLayers();
 
-        isGrounded = IsGrounded();
+        Flip(horizontal);
 
         ResetValues();
 
     }
     #endregion
 
+
     #region HandleMovement
-    private void HandleMovement(float horizontal) //reponsavel por movimentar o personagem
+    private void HandleMovement(float horizontal) // Cuida dos movimentos
     {
-        if (isGrounded || airControl) {
+        if(rb.velocity.y < 0) //usa o RB para detectar quando esta caindo
+        {
+            myAnimator.SetBool("land", true); // seta o trigger land para verdadeiro
+        }
+
+        if (isGrounded || airControl) { //Walk
             rb.velocity = new Vector2(horizontal * movementSpeed, rb.velocity.y);
         }        
 
         //troca a animação de Idle para Walk com base na velocidade
         myAnimator.SetFloat("speed", Mathf.Abs(horizontal));
 
-        if (isGrounded && jump)
+        if (isGrounded && jump) //Jump
         {
             isGrounded = false;
-            rb.AddForce(new Vector2(0, jumpForce));
+            rb.AddForce(new Vector2(0, jumpForce));//pula quando press space
+            myAnimator.SetTrigger("jump"); //troca a animação para playerJumpUP quando press space (trigger)
         }
 
     }
     #endregion
+
 
     #region HandleInput
     private void HandleInput()
@@ -101,6 +110,22 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
+
+
+    #region HandleLayers
+    private void HandleLayers()
+    {
+        if (!isGrounded)
+        {
+            myAnimator.SetLayerWeight(1, 1);
+        }
+        else
+        {
+            myAnimator.SetLayerWeight(1, 0);
+        }
+    }
+    #endregion
+
 
     #region Flip
     //Muda o personagem de posição de acordo com a direção que ele está indo
@@ -122,24 +147,31 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+
     #region ResetValues
-    private void ResetValues() {
+    private void ResetValues()
+    {
         jump = false;
     }
     #endregion
 
+
     #region IsGrounded
-    private bool IsGrounded() {
+    private bool IsGrounded()
+    {
         if(rb.velocity.y <= 0)
         {
             foreach (Transform point in groundPoints)
             {
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(point.position, groundRadius, whatIsGround);
 
-                for (int i = 0; i < colliders.Length; i++) {
+                for (int i = 0; i < colliders.Length; i++)
+                {
 
                     if(colliders[i].gameObject != gameObject)
                     {
+                        myAnimator.ResetTrigger("jump");// reseta o trigger da animção de pulo
+                        myAnimator.SetBool("land", false); // seta o trigger para iniciar a niamção de queda(land)
                         return true;
                     }
                 }
