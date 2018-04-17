@@ -104,7 +104,7 @@ public class Player : MonoBehaviour
     #region HandleInput
     private void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown("w"))
         {
             jump = true;
         }
