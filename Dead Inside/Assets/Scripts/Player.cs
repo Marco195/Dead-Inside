@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
 
     private bool facingRight;
 
+    private bool attack;
+
     [SerializeField]
     private Transform[] groundPoints;
 
@@ -50,7 +52,7 @@ public class Player : MonoBehaviour
     #region Update
     private void Update()
     {
-        HandleInput();
+        HandleInput();// chamada do handle input
     }
     #endregion
 
@@ -65,6 +67,8 @@ public class Player : MonoBehaviour
         
         HandleMovement(horizontal);
 
+        HandleAttacks();
+
         HandleLayers();
 
         Flip(horizontal);
@@ -78,12 +82,17 @@ public class Player : MonoBehaviour
     #region HandleMovement
     private void HandleMovement(float horizontal) // Cuida dos movimentos
     {
-        if(rb.velocity.y < 0) //usa o RB para detectar quando esta caindo
+        /*if (!this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))//para a animação de correr quando ataca
+        {
+           rb.velocity = new Vector2(horizontal * movementSpeed, rb.velocity.y);
+        }*/
+        
+        if (rb.velocity.y < 0) //usa o RB para detectar quando esta caindo
         {
             myAnimator.SetBool("land", true); // seta o trigger land para verdadeiro
         }
 
-        if (isGrounded || airControl) { //Walk
+        if (isGrounded || airControl) { // Para a animação de correr quando no ar
             rb.velocity = new Vector2(horizontal * movementSpeed, rb.velocity.y);
         }        
 
@@ -94,7 +103,7 @@ public class Player : MonoBehaviour
         {
             isGrounded = false;
             rb.AddForce(new Vector2(0, jumpForce));//pula quando press space
-            myAnimator.SetTrigger("jump"); //troca a animação para playerJumpUP quando press space (trigger)
+            myAnimator.SetTrigger("jump"); //troca a animação para playerJumpUP quando press w (trigger)
         }
 
     }
@@ -103,14 +112,30 @@ public class Player : MonoBehaviour
 
     #region HandleInput
     private void HandleInput()
-    {
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown("w"))
+    {       
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown("w"))//Jump key cap
         {
             jump = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))// Attack key cap
+        {
+            attack = true;
+            //rb.velocity = Vector2.zero;
         }
     }
     #endregion
 
+    #region HandleAttacks
+    private void HandleAttacks() // ativa o trigger attack do animator
+    {
+        if (attack)
+        {
+            myAnimator.SetTrigger("attack");
+        }
+    }
+
+    #endregion
 
     #region HandleLayers
     private void HandleLayers()
@@ -152,6 +177,8 @@ public class Player : MonoBehaviour
     private void ResetValues()
     {
         jump = false;
+
+        attack = false;
     }
     #endregion
 
