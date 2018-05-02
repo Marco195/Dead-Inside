@@ -36,7 +36,18 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float jumpForce;
 
-    
+    [SerializeField]
+    public int fallBoundary = -20; //Cair alem da fronteira
+
+    #region Playerstats Class
+    [SerializeField]
+    private class PlayerStats // classe que lida com os stats do personagem
+    {
+        public int Health = 100;
+    }
+    #endregion   
+
+    private PlayerStats playerStats = new PlayerStats();
 
     #region Start
     // Use this for initialization
@@ -53,6 +64,11 @@ public class Player : MonoBehaviour
     private void Update()
     {
         HandleInput();// chamada do handle input
+
+        if(transform.position.y <= fallBoundary)
+        {
+            DamagePLayer(9999999);
+        }
     }
     #endregion
 
@@ -75,6 +91,17 @@ public class Player : MonoBehaviour
 
         ResetValues();
 
+    }
+    #endregion
+
+
+    #region DamagePlayer 
+    public void DamagePLayer(int damage) { // dano ao personagem
+        playerStats.Health -= damage;
+        if (playerStats.Health <= 0)
+        {
+            GameMaster.KillPlayer(this); // chama a função killPLayer da classe gameMaster
+        }
     }
     #endregion
 
@@ -126,6 +153,7 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+
     #region HandleAttacks
     private void HandleAttacks() // ativa o trigger attack do animator
     {
@@ -136,6 +164,7 @@ public class Player : MonoBehaviour
     }
 
     #endregion
+
 
     #region HandleLayers
     private void HandleLayers()
@@ -194,11 +223,10 @@ public class Player : MonoBehaviour
 
                 for (int i = 0; i < colliders.Length; i++)
                 {
-
                     if(colliders[i].gameObject != gameObject)
                     {
                         myAnimator.ResetTrigger("jump");// reseta o trigger da animção de pulo
-                        myAnimator.SetBool("land", false); // seta o trigger para iniciar a niamção de queda(land)
+                        myAnimator.SetBool("land", false); // seta o trigger para iniciar a animação de queda(land)
                         return true;
                     }
                 }
