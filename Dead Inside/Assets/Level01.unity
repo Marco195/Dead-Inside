@@ -744,6 +744,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &264471257 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1559297395827574, guid: f3c2fe710eabfa849baa38b015b5ee73,
+    type: 2}
+  m_PrefabInternal: {fileID: 785211955}
 --- !u!1 &269553907
 GameObject:
   m_ObjectHideFlags: 0
@@ -2343,7 +2348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smoothTimeY: 0.05
   smoothTimeX: 0.05
-  player: {fileID: 0}
+  player: {fileID: 264471257}
   bounds: 1
   minCameraPos: {x: 0, y: 0, z: -10}
   maxCameraPos: {x: 45.6, y: 25.1, z: -10}

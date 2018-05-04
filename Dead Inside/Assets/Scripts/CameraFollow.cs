@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour {
-
     private Vector2 velocity;
 
     public float smoothTimeY;
@@ -25,13 +24,15 @@ public class CameraFollow : MonoBehaviour {
 
         player = GameObject.FindGameObjectWithTag("Player"); // atribui o obj da unity com a tag player a variavel
 
-
 	}
 	
     void FixedUpdate()
     {
         if (player == null) //só chama o codigo abaixo se o obj player ainda existir
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
             return;
+        }
 
         float posX = Mathf.SmoothDamp(transform.position.x, player.transform.position.x, ref velocity.x, smoothTimeX);
         float posY = Mathf.SmoothDamp(transform.position.y, player.transform.position.y, ref velocity.y, smoothTimeY);
@@ -44,6 +45,7 @@ public class CameraFollow : MonoBehaviour {
             Mathf.Clamp(transform.position.y, minCameraPos.y, maxCameraPos.y),
             Mathf.Clamp(transform.position.z, minCameraPos.z, maxCameraPos.z));
         }
-    }
-	
+    }  
+     
+
 }
