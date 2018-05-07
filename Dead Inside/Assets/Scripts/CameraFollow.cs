@@ -19,7 +19,6 @@ public class CameraFollow : MonoBehaviour {
     [SerializeField]
     private Vector3 maxCameraPos;
 
-
     void Start () {
 
         player = GameObject.FindGameObjectWithTag("Player"); // atribui o obj da unity com a tag player a variavel
@@ -30,8 +29,8 @@ public class CameraFollow : MonoBehaviour {
     {
         if (player == null) //só chama o codigo abaixo se o obj player ainda existir
         {
-            player = GameObject.FindGameObjectWithTag("Player");
-            return;
+           player = GameObject.FindGameObjectWithTag("Player");
+           return;
         }
 
         float posX = Mathf.SmoothDamp(transform.position.x, player.transform.position.x, ref velocity.x, smoothTimeX);
@@ -45,7 +44,6 @@ public class CameraFollow : MonoBehaviour {
             Mathf.Clamp(transform.position.y, minCameraPos.y, maxCameraPos.y),
             Mathf.Clamp(transform.position.z, minCameraPos.z, maxCameraPos.z));
         }
-    }  
-     
+    }
 
 }

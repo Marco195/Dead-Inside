@@ -65,9 +65,9 @@ public class Player : MonoBehaviour
     {
         HandleInput();// chamada do handle input
 
-        if(transform.position.y <= fallBoundary)
+        if(transform.position.y <= fallBoundary)// comando que verifica se o player passou do limite de y
         {
-            DamagePLayer(9999999);
+            DamagePlayer(9999999);
         }
     }
     #endregion
@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
 
 
     #region DamagePlayer 
-    public void DamagePLayer(int damage) { // dano ao personagem
+    public void DamagePlayer(int damage) { // dano ao personagem
         playerStats.Health -= damage;
         if (playerStats.Health <= 0)
         {

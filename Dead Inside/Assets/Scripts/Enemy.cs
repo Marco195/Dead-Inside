@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour {
 
     public float speed = 1;
 
+    private bool died = false;
+
 	void Start () {
         myTransf = this.transform;
 
@@ -45,4 +47,13 @@ public class Enemy : MonoBehaviour {
         myVel.x = -myTransf.right.x * speed;// positivo pra direita e negativo pra esquerda
         rb.velocity = myVel;
 	}
+
+    public void Die()
+    {
+        if (!died)
+        {
+            died = true;
+            GameMaster.KillEnemy(this);
+        }
+    }
 }
