@@ -39,6 +39,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     public int fallBoundary = -20; //Cair alem da fronteira
 
+    private bool died = false;
+
     #region Playerstats Class
     [SerializeField]
     private class PlayerStats // classe que lida com os stats do personagem
@@ -67,7 +69,7 @@ public class Player : MonoBehaviour
 
         if(transform.position.y <= fallBoundary)// comando que verifica se o player passou do limite de y
         {
-            DamagePlayer(9999999);
+            GameMaster.KillPlayer(this);
         }
     }
     #endregion
@@ -95,12 +97,23 @@ public class Player : MonoBehaviour
     #endregion
 
 
-    #region DamagePlayer 
-    public void DamagePlayer(int damage) { // dano ao personagem
-        playerStats.Health -= damage;
-        if (playerStats.Health <= 0)
+    //#region DamagePlayer 
+    //public void DamagePlayer(int damage) { // dano ao personagem
+    //    playerStats.Health -= damage;
+    //    if (playerStats.Health <= 0)
+    //    {
+    //        GameMaster.KillPlayer(this); // chama a função killPLayer da classe gameMaster
+    //    }
+    //}
+    //#endregion
+
+    #region Die
+    public void Die()
+    {
+        if (!died)
         {
-            GameMaster.KillPlayer(this); // chama a função killPLayer da classe gameMaster
+            died = true;
+            GameMaster.KillPlayer(this);
         }
     }
     #endregion

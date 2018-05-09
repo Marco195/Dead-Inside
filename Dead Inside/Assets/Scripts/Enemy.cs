@@ -16,7 +16,12 @@ public class Enemy : MonoBehaviour {
 
     private bool died = false;
 
-	void Start () {
+    //vida do inimigo
+    private int curHealth;
+
+    private int maxHealth = 100;
+
+    void Start () {
         myTransf = this.transform;
 
         rb = this.GetComponent<Rigidbody2D>();
@@ -24,6 +29,8 @@ public class Enemy : MonoBehaviour {
         SpriteRenderer mySprite = this.GetComponent<SpriteRenderer>();
 
         myWidth = mySprite.bounds.extents.x;//pega o tamanho da sprite
+
+        curHealth = maxHealth;
 
     }
 
@@ -46,8 +53,35 @@ public class Enemy : MonoBehaviour {
         Vector2 myVel = rb.velocity;
         myVel.x = -myTransf.right.x * speed;// positivo pra direita e negativo pra esquerda
         rb.velocity = myVel;
+
+        if (curHealth <=0)
+        {
+            Die();
+        }
+
 	}
 
+    #region OnTriggerEnter2D 
+    private bool kill = true;
+
+    //mata o player se colidir com o inimigo
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.isTrigger != true && collision.CompareTag("Player"))
+        {
+            collision.SendMessage("Die", kill);
+        }
+    }
+    #endregion
+
+    #region DamageEnemy
+    public void DamageEnemy(int damage)
+    {
+        curHealth -= damage;
+    }
+    #endregion
+
+    #region Die
     public void Die()
     {
         if (!died)
@@ -56,4 +90,7 @@ public class Enemy : MonoBehaviour {
             GameMaster.KillEnemy(this);
         }
     }
+    #endregion
+
+
 }
