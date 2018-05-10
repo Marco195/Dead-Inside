@@ -84,3 +84,4 @@ MonoBehaviour:
     type: 2}
   spawnPoint: {fileID: 4440608485866042}
   spawnDelay: 2
+  gameOverUI: {fileID: 0}
