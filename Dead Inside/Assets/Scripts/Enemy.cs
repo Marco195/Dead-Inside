@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour {
 
     private bool died = false;
 
+    public int points = 1;
+
     //vida do inimigo
     private int curHealth;
 

@@ -27,6 +27,16 @@ public class GameMaster : MonoBehaviour {
         get { return _remainingLives; }
     }
 
+    //variaveis para a pontuação
+    private static int startingpontuation = 0;
+
+    private static int pontuation;
+
+    public static int Points
+    {
+        get { return pontuation; }
+    }
+
 
     void Start()
     {
@@ -41,6 +51,10 @@ public class GameMaster : MonoBehaviour {
 
         //para iniciar com 3 vidas após o game over
         _remainingLives = maxLives;
+        
+        //inicia a pontuação
+        pontuation = startingpontuation;
+        pontuation = 0;       
     }
 
     public void EndGame()
@@ -75,7 +89,23 @@ public class GameMaster : MonoBehaviour {
 
     public static void KillEnemy(Enemy enemy) // elimina o inimigo
     {
-        //pontuação entra aqui
-        Destroy(enemy.gameObject);
+        gm._KillEnemy(enemy);
     }
+
+    public void _KillEnemy(Enemy _enemy)
+    {
+        pontuation += _enemy.points;//variável points do enemy script
+        Debug.Log(pontuation);
+        Destroy(_enemy.gameObject);
+        Score();
+    }
+
+
+    static void Score()
+    {
+
+        PlayerPrefs.SetInt("Score", pontuation);
+    }
+
+
 }
