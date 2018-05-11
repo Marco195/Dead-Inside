@@ -23,6 +23,12 @@ public class Enemy : MonoBehaviour {
 
     private int maxHealth = 100;
 
+
+    private void Awake()
+    {
+        curHealth = maxHealth;
+    }
+
     void Start () {
         myTransf = this.transform;
 
@@ -30,9 +36,7 @@ public class Enemy : MonoBehaviour {
 
         SpriteRenderer mySprite = this.GetComponent<SpriteRenderer>();
 
-        myWidth = mySprite.bounds.extents.x;//pega o tamanho da sprite
-
-        curHealth = maxHealth;
+        myWidth = mySprite.bounds.extents.x;//pega o tamanho da sprite             
 
     }
 
@@ -51,7 +55,7 @@ public class Enemy : MonoBehaviour {
             myTransf.eulerAngles = currentRotation;  
         }
 
-        //sempre anda para frente
+        //anda para frente
         Vector2 myVel = rb.velocity;
         myVel.x = -myTransf.right.x * speed;// positivo pra direita e negativo pra esquerda
         rb.velocity = myVel;
@@ -65,10 +69,10 @@ public class Enemy : MonoBehaviour {
 
     #region OnTriggerEnter2D 
     private bool kill = true;
-
     //mata o player se colidir com o inimigo
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         if (collision.isTrigger != true && collision.CompareTag("Player"))
         {
             collision.SendMessage("Die", kill);

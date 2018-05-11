@@ -37,29 +37,23 @@ public class GameMaster : MonoBehaviour {
         get { return pontuation; }
     }
 
-
     void Start()
     {
         if (gm == null)
         {
             gm = this;
         }
-        //if (gm == null)
-        //{
-        //    gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
-        //}
-
         //para iniciar com 3 vidas após o game over
         _remainingLives = maxLives;
         
         //inicia a pontuação
         pontuation = startingpontuation;
-        pontuation = 0;       
+        pontuation = 0; 
     }
 
     public void EndGame()
     {
-        Debug.Log("GAME OVER");
+       Debug.Log("GAME OVER");
        gameOverUI.SetActive(true);
     }
 
@@ -100,12 +94,17 @@ public class GameMaster : MonoBehaviour {
         Score();
     }
 
-
     static void Score()
     {
-
         PlayerPrefs.SetInt("Score", pontuation);
     }
 
-
+    //adiciona + 1 quando o jogador fizer 5 pontos
+    private void extraLive()
+    {
+        if (pontuation == 5)
+        {
+            _remainingLives += 1; 
+        }
+    }
 }
