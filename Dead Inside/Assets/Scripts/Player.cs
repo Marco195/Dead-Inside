@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    //singleton
+    public static Player instance = null;
 
     private Rigidbody2D rb;
 
@@ -25,7 +27,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private LayerMask whatIsGround; //Usado para detectar se o objeto que esta abaixo do player é um ground
 
-    private bool isGrounded;
+    public bool isGrounded;
 
     private bool jump;
 
@@ -50,6 +52,18 @@ public class Player : MonoBehaviour
     #endregion   
 
     private PlayerStats playerStats = new PlayerStats();
+
+    #region Awake
+    private void Awake()
+    {
+        //Singleton
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else instance = this;
+    }
+    #endregion
 
     #region Start
     // Use this for initialization
@@ -82,7 +96,7 @@ public class Player : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");// atribui o eixo X a variavel horizontal
 
         isGrounded = IsGrounded();
-        
+
         HandleMovement(horizontal);
 
         HandleAttacks();
@@ -92,7 +106,6 @@ public class Player : MonoBehaviour
         Flip(horizontal);
 
         ResetValues();
-
     }
     #endregion
 
