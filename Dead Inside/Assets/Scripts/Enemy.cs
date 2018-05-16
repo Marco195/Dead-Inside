@@ -72,7 +72,6 @@ public class Enemy : MonoBehaviour {
     //mata o player se colidir com o inimigo
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.isTrigger != true && collision.CompareTag("Player"))
         {
             collision.SendMessage("Die", kill);

@@ -8,19 +8,15 @@ public class Player : MonoBehaviour
     public static Player instance = null;
 
     private Rigidbody2D rb;
-
     private Animator myAnimator;
 
     [SerializeField]
     private float movementSpeed;
-
     private bool facingRight;
-
     private bool attack;
 
     [SerializeField]
     private Transform[] groundPoints;
-
     [SerializeField]
     private float groundRadius;
 
@@ -28,16 +24,13 @@ public class Player : MonoBehaviour
     private LayerMask whatIsGround; //Usado para detectar se o objeto que esta abaixo do player é um ground
 
     public bool isGrounded;
-
     private bool jump;
 
     // variaveis serialized podem ser acessadas pelo Inspector dentro do Unity
     [SerializeField]
     private bool airControl;
-
     [SerializeField]
     private float jumpForce;
-
     [SerializeField]
     public int fallBoundary = -20; //Cair alem da fronteira
 
@@ -75,7 +68,6 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-
     #region Update
     private void Update()
     {
@@ -110,15 +102,16 @@ public class Player : MonoBehaviour
     #endregion
 
 
-    //#region DamagePlayer 
-    //public void DamagePlayer(int damage) { // dano ao personagem
-    //    playerStats.Health -= damage;
-    //    if (playerStats.Health <= 0)
-    //    {
-    //        GameMaster.KillPlayer(this); // chama a função killPLayer da classe gameMaster
-    //    }
-    //}
-    //#endregion
+    #region DamagePlayer 
+    public void DamagePlayer(int damage)
+    { // dano ao personagem
+        playerStats.Health -= damage;
+        if (playerStats.Health <= 0)
+        {
+            GameMaster.KillPlayer(this); // chama a função killPLayer da classe gameMaster
+        }
+    }
+    #endregion
 
     #region Die
     public void Die()

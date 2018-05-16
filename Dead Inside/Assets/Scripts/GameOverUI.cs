@@ -15,5 +15,6 @@ public class GameOverUI : MonoBehaviour {
     {
         //recarrega a cena
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
     }
 }

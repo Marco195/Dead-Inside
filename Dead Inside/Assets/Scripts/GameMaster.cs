@@ -8,13 +8,8 @@ public class GameMaster : MonoBehaviour {
     public static GameMaster gm;
 
     public Transform playerPrefab;
-
     public Transform spawnPoint;
-
     public int spawnDelay = 2;
-
-    [SerializeField]
-    private int maxLives = 3;
 
     [SerializeField]
     private GameObject gameOverUI;
@@ -22,8 +17,10 @@ public class GameMaster : MonoBehaviour {
     [SerializeField]
     private GameObject levelWonUI;
 
-    private static int _remainingLives = 3;
+    [SerializeField]
+    private int maxLives = 3;    
 
+    private static int _remainingLives = 3;
     //vidas restantes
     public static int RemainingLives
     {
@@ -32,9 +29,7 @@ public class GameMaster : MonoBehaviour {
 
     //variaveis para a pontuação
     private static int startingpontuation = 0;
-
     private static int pontuation;
-
     public static int Points
     {
         get { return pontuation; }
@@ -45,6 +40,7 @@ public class GameMaster : MonoBehaviour {
         if (gm == null)
         {
             gm = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -80,15 +76,16 @@ public class GameMaster : MonoBehaviour {
     {
         Debug.Log("Level WON");
         extraLive();
-        levelWonUI.SetActive(true); 
+        levelWonUI.SetActive(true);     
     }
     #endregion
 
+    #region End
     public static void End()
     {
         gm.EndGame();
     }
-
+    #endregion
 
     #region EndGame
     public void EndGame()
