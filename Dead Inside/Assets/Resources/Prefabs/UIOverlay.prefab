@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 95017126621301048}
   m_Layer: 5
   m_Name: GameOver
-  m_TagString: Untagged
+  m_TagString: GameOverUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 95918915334421158}
   m_Layer: 5
   m_Name: LevelWonUI
-  m_TagString: Untagged
+  m_TagString: LevelWonUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

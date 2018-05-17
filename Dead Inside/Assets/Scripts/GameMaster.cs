@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour {
     //GameMaster fará a ligação entre das fases (resumindo)
@@ -11,11 +12,13 @@ public class GameMaster : MonoBehaviour {
     public Transform spawnPoint;
     public int spawnDelay = 2;
 
+    public int animationDelay = 4;
+
     [SerializeField]
     private GameObject gameOverUI;
 
     [SerializeField]
-    private GameObject levelWonUI;
+    public GameObject levelWonUI;
 
     [SerializeField]
     private int maxLives = 3;    
@@ -34,6 +37,7 @@ public class GameMaster : MonoBehaviour {
     {
         get { return pontuation; }
     }
+
 
     private void Awake()
     {
@@ -72,11 +76,16 @@ public class GameMaster : MonoBehaviour {
     //#endregion
 
     #region CompleteLevel
-    public void CompleteLevel()
+    public IEnumerator CompleteLevel()
     {
+        GameObject UIOverlay = GameObject.FindGameObjectWithTag("UIOverlay");
+        UIOverlay.transform.GetChild(3).gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(animationDelay);
+        
         Debug.Log("Level WON");
         extraLive();
-        levelWonUI.SetActive(true);     
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     #endregion
 
@@ -90,8 +99,9 @@ public class GameMaster : MonoBehaviour {
     #region EndGame
     public void EndGame()
     {
-       Debug.Log("GAME OVER");
-       gameOverUI.SetActive(true);
+        GameObject UIOverlay = GameObject.FindGameObjectWithTag("UIOverlay");
+        UIOverlay.transform.GetChild(1).gameObject.SetActive(true);
+        Debug.Log("GAME OVER");
     }
     #endregion
 

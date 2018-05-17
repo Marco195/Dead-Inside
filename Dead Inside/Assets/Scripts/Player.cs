@@ -80,7 +80,6 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-
     #region FixedUpdate
     // Update is called once per frame
     void FixedUpdate()// tem uma atualização mais constante do que o Update comum

@@ -289,7 +289,6 @@
     <Compile Include="Assets\Scripts\ExtensionMethods.cs" />
     <Compile Include="Assets\Scripts\GameMaster.cs" />
     <Compile Include="Assets\Scripts\GameOverUI.cs" />
-    <Compile Include="Assets\Scripts\LevelWonUI.cs" />
     <Compile Include="Assets\Scripts\LivesCounterUI.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
