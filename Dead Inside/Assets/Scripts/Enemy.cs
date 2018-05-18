@@ -58,6 +58,8 @@ public class Enemy : MonoBehaviour {
         //anda para frente
         Vector2 myVel = rb.velocity;
         myVel.x = -myTransf.right.x * speed;// positivo pra direita e negativo pra esquerda
+
+
         rb.velocity = myVel;
 
         if (curHealth <=0)

@@ -7,8 +7,9 @@ public class GameOverUI : MonoBehaviour {
 
     public void Quit()
     {
-        Debug.Log("APPLICATION QUIT!");
-        Application.Quit();
+        //Volta ao menu inicial e destroi obj GameMaster
+        SceneManager.LoadScene(0);
+        GameMaster.DestroyGM();
     }
 
     public void Retry()
