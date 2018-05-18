@@ -80,12 +80,12 @@ public class GameMaster : MonoBehaviour {
     {
         GameObject UIOverlay = GameObject.FindGameObjectWithTag("UIOverlay");
         UIOverlay.transform.GetChild(3).gameObject.SetActive(true);
-
+        extraLive();
         yield return new WaitForSeconds(animationDelay);
         
-        Debug.Log("Level WON");
-        extraLive();
+        Debug.Log("Level WON");        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        
     }
     #endregion
 
@@ -102,6 +102,13 @@ public class GameMaster : MonoBehaviour {
         GameObject UIOverlay = GameObject.FindGameObjectWithTag("UIOverlay");
         UIOverlay.transform.GetChild(1).gameObject.SetActive(true);
         Debug.Log("GAME OVER");
+
+        //para iniciar com 3 vidas após o game over
+        _remainingLives = maxLives;
+
+        //inicia a pontuação
+        pontuation = startingpontuation;
+        pontuation = 0;
     }
     #endregion
 
@@ -160,7 +167,7 @@ public class GameMaster : MonoBehaviour {
     //adiciona + 1 quando o jogador fizer 5 pontos
     private void extraLive()
     {
-        if (pontuation == 5)
+        if (pontuation >= 4)
         {
             _remainingLives += 1; 
         }
