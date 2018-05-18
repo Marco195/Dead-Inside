@@ -20,28 +20,32 @@ public class PlayerAttack : MonoBehaviour {
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && !attacking)
-        {            
-            attacking = true;
-            attackTimer = AttackCd;
-            //ativa o trigger do collider
-            attackTrigger.enabled = true;
-        }
+        Debug.Log(Player.instance.isGrounded);
 
-        if (attacking)
+        if (Player.instance.isGrounded)
         {
-            if(attackTimer > 0)
+            if (Input.GetKeyDown(KeyCode.Space) && !attacking)
             {
-                //Tempo que o collider permanece ativado
-                attackTimer -= Time.deltaTime;
+                attacking = true;
+                attackTimer = AttackCd;
+                //ativa o trigger do collider
+                attackTrigger.enabled = true;
             }
-            else 
+
+            if (attacking)
             {
-                attacking = false;
-                attackTrigger.enabled = false;
+                if (attackTimer > 0)
+                {
+                    //Tempo que o collider permanece ativado
+                    attackTimer -= Time.deltaTime;
+                }
+                else
+                {
+                    attacking = false;
+                    attackTrigger.enabled = false;
+                }
             }
         }
-
     }
 
 }

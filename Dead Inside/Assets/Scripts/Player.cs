@@ -4,38 +4,33 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    //singleton
+    public static Player instance = null;
 
     private Rigidbody2D rb;
-
     private Animator myAnimator;
 
     [SerializeField]
     private float movementSpeed;
-
     private bool facingRight;
-
     private bool attack;
 
     [SerializeField]
     private Transform[] groundPoints;
-
     [SerializeField]
     private float groundRadius;
 
     [SerializeField]
     private LayerMask whatIsGround; //Usado para detectar se o objeto que esta abaixo do player é um ground
 
-    private bool isGrounded;
-
+    public bool isGrounded;
     private bool jump;
 
     // variaveis serialized podem ser acessadas pelo Inspector dentro do Unity
     [SerializeField]
     private bool airControl;
-
     [SerializeField]
     private float jumpForce;
-
     [SerializeField]
     public int fallBoundary = -20; //Cair alem da fronteira
 
@@ -51,6 +46,18 @@ public class Player : MonoBehaviour
 
     private PlayerStats playerStats = new PlayerStats();
 
+    #region Awake
+    private void Awake()
+    {
+        //Singleton
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else instance = this;
+    }
+    #endregion
+
     #region Start
     // Use this for initialization
     void Start()
@@ -60,7 +67,6 @@ public class Player : MonoBehaviour
         myAnimator = GetComponent<Animator>(); // cria um componente animator
     }
     #endregion
-
 
     #region Update
     private void Update()
@@ -74,7 +80,6 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-
     #region FixedUpdate
     // Update is called once per frame
     void FixedUpdate()// tem uma atualização mais constante do que o Update comum
@@ -82,7 +87,7 @@ public class Player : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");// atribui o eixo X a variavel horizontal
 
         isGrounded = IsGrounded();
-        
+
         HandleMovement(horizontal);
 
         HandleAttacks();
@@ -92,20 +97,20 @@ public class Player : MonoBehaviour
         Flip(horizontal);
 
         ResetValues();
-
     }
     #endregion
 
 
-    //#region DamagePlayer 
-    //public void DamagePlayer(int damage) { // dano ao personagem
-    //    playerStats.Health -= damage;
-    //    if (playerStats.Health <= 0)
-    //    {
-    //        GameMaster.KillPlayer(this); // chama a função killPLayer da classe gameMaster
-    //    }
-    //}
-    //#endregion
+    #region DamagePlayer 
+    public void DamagePlayer(int damage)
+    { // dano ao personagem
+        playerStats.Health -= damage;
+        if (playerStats.Health <= 0)
+        {
+            GameMaster.KillPlayer(this); // chama a função killPLayer da classe gameMaster
+        }
+    }
+    #endregion
 
     #region Die
     public void Die()

@@ -6,6 +6,9 @@ TagManager:
   tags:
   - GM
   - Enemy
+  - GameOverUI
+  - LevelWonUI
+  - UIOverlay
   layers:
   - Default
   - TransparentFX
