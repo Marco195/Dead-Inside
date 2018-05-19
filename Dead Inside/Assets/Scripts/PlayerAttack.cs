@@ -20,7 +20,6 @@ public class PlayerAttack : MonoBehaviour {
 
     void Update()
     {
-        Debug.Log(Player.instance.isGrounded);
 
         if (Player.instance.isGrounded)
         {
