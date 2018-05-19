@@ -78,14 +78,14 @@ public class GameMaster : MonoBehaviour {
     #region CompleteLevel
     public IEnumerator CompleteLevel()
     {
+        //Coroutine feita para conseguir acessar os objetos de outras fases quando obj GameMaster é instanciado
         GameObject UIOverlay = GameObject.FindGameObjectWithTag("UIOverlay");
         UIOverlay.transform.GetChild(3).gameObject.SetActive(true);
-        extraLive();
+        extraLive();//Adiciona uma vida nova caso tenha mais de X pontos
         yield return new WaitForSeconds(animationDelay);
         
         Debug.Log("Level WON");        
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);//proxima fase        
     }
     #endregion
 
@@ -171,6 +171,14 @@ public class GameMaster : MonoBehaviour {
         {
             _remainingLives += 1; 
         }
+    }
+    #endregion
+
+    #region DestroyGM
+    public static void DestroyGM()
+    {
+        //usado para destruir o obg GM ao clicar em "sair" no game over
+        DestroyImmediate(gm.gameObject);
     }
     #endregion
 }
