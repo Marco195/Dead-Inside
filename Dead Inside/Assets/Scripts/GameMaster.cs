@@ -8,23 +8,19 @@ public class GameMaster : MonoBehaviour {
     //IMPORTANTE: Deve haver apenas um GM para todas as fases existentes
     public static GameMaster gm;
 
+    //variaveis relacionadas ao respawn do player
     public Transform playerPrefab;
     public Transform spawnPoint;
     public int spawnDelay = 2;
 
     public int animationDelay = 4;
 
-    [SerializeField]
-    private GameObject gameOverUI;
+    public static bool pause = false;
 
     [SerializeField]
-    public GameObject levelWonUI;
-
-    [SerializeField]
-    private int maxLives = 3;    
-
-    private static int _remainingLives = 3;
+    private int maxLives = 3;
     //vidas restantes
+    private static int _remainingLives = 3;    
     public static int RemainingLives
     {
         get { return _remainingLives; }
@@ -38,8 +34,8 @@ public class GameMaster : MonoBehaviour {
         get { return pontuation; }
     }
 
-
-    private void Awake()
+    #region Awake
+    private void Awake() //usado para inicializar variaveis, é chamado antes do start
     {
         if (gm == null)
         {
@@ -58,22 +54,19 @@ public class GameMaster : MonoBehaviour {
         pontuation = startingpontuation;
         pontuation = 0;
     }
+    #endregion
 
-    //#region Start
-    //void Start()
-    //{
-    //    if (gm == null)
-    //    {
-    //        gm = this;
-    //    }
-    //    //para iniciar com 3 vidas após o game over
-    //    _remainingLives = maxLives;
-        
-    //    //inicia a pontuação
-    //    pontuation = startingpontuation;
-    //    pontuation = 0; 
-    //}
-    //#endregion
+    #region Update
+    void Update()
+    {
+        //Se P ou esc press. chama a função pause game
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+        {
+                Debug.Log("Pause");
+                PauseGame();
+        }
+    }
+    #endregion
 
     #region CompleteLevel
     public IEnumerator CompleteLevel()
@@ -84,8 +77,9 @@ public class GameMaster : MonoBehaviour {
         extraLive();//Adiciona uma vida nova caso tenha mais de X pontos
         yield return new WaitForSeconds(animationDelay);
         
-        Debug.Log("Level WON");        
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);//proxima fase        
+        //Debug.Log("Level WON");        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);//proxima fase 
+        //Time.timeScale = 0.0f;
     }
     #endregion
 
@@ -109,6 +103,35 @@ public class GameMaster : MonoBehaviour {
         //inicia a pontuação
         pontuation = startingpontuation;
         pontuation = 0;
+    }
+    #endregion
+
+    #region Pause
+    public static void Pause()
+    { 
+        gm.PauseGame();
+    }
+    #endregion
+
+    #region PauseGame
+    public void PauseGame()
+    {   //pauseMenu     
+        pause = !pause;
+        if (pause)
+        {
+            //se P ou ESC for pressionado, para o tempo e ativa o menu de pause
+            GameObject UIOverlay = GameObject.FindGameObjectWithTag("UIOverlay");
+            UIOverlay.transform.GetChild(4).gameObject.SetActive(true);
+            Time.timeScale = 0.0f;
+        }
+        else
+        {
+            //se P pressionado denovo ele desativa o menu e volta o tempo ao normal
+            GameObject UIOverlay = GameObject.FindGameObjectWithTag("UIOverlay");
+            UIOverlay.transform.GetChild(4).gameObject.SetActive(false);
+            Time.timeScale = 1.0f;
+        }
+            
     }
     #endregion
 
@@ -159,12 +182,13 @@ public class GameMaster : MonoBehaviour {
     #region Score
     static void Score()
     {
+        //Gerencia os pontos do jogador
         PlayerPrefs.SetInt("Score", pontuation);
     }
     #endregion
 
     #region extraLive
-    //adiciona + 1 quando o jogador fizer 5 pontos
+    //adiciona + 1 quando o jogador fizer X pontos
     private void extraLive()
     {
         if (pontuation >= 4)

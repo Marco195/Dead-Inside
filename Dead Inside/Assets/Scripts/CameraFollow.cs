@@ -19,12 +19,15 @@ public class CameraFollow : MonoBehaviour {
     [SerializeField]
     private Vector3 maxCameraPos;
 
+    #region Start
     void Start () {
 
         player = GameObject.FindGameObjectWithTag("Player"); // atribui o obj da unity com a tag player a variavel
 
 	}
-	
+    #endregion
+
+
     void FixedUpdate()
     {
         if (player == null) //só chama o codigo abaixo se o obj player ainda existir
