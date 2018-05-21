@@ -235,6 +235,6 @@ e1ecd31084d88724bd270922c2c81b1a Assembly-CSharp.dll:.CameraFollow
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AttackTrigger
 020550babdb991365f61c5bffe1f4f52 Assembly-CSharp.dll:TMPro.Examples.TextMeshSpawner
 af7666733efcc974926d7d470e1732a6 Assembly-CSharp.dll:TMPro.Examples.SkewTextExample
-760c39b44a5eaa46e85f60ec791b98dc Assembly-CSharp.dll:.GameMaster
+24c9fa943e19944a5f05c955b26c7365 Assembly-CSharp.dll:.GameMaster
 34e025057ef78b1bf238460cdf6583a3 Assembly-CSharp.dll:TMPro.Examples.ObjectSpin
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:TMPro.Examples.SimpleScript

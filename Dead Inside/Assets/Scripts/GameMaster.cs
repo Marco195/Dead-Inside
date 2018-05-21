@@ -16,9 +16,7 @@ public class GameMaster : MonoBehaviour {
     public int animationDelay = 4;
 
     public static bool pause = false;
-
-    [SerializeField]
-    private int maxLives = 3;
+     
     //vidas restantes
     private static int _remainingLives = 3;    
     public static int RemainingLives
@@ -27,8 +25,7 @@ public class GameMaster : MonoBehaviour {
     }
 
     //variaveis para a pontuação
-    private static int startingpontuation = 0;
-    private static int pontuation;
+    private static int pontuation = 0;
     public static int Points
     {
         get { return pontuation; }
@@ -48,10 +45,9 @@ public class GameMaster : MonoBehaviour {
         }
 
         //para iniciar com 3 vidas após o game over
-        _remainingLives = maxLives;
+        _remainingLives = 3;
 
         //inicia a pontuação
-        pontuation = startingpontuation;
         pontuation = 0;
     }
     #endregion
@@ -74,7 +70,7 @@ public class GameMaster : MonoBehaviour {
         //Coroutine feita para conseguir acessar os objetos de outras fases quando obj GameMaster é instanciado
         GameObject UIOverlay = GameObject.FindGameObjectWithTag("UIOverlay");
         UIOverlay.transform.GetChild(3).gameObject.SetActive(true);
-        extraLive();//Adiciona uma vida nova caso tenha mais de X pontos
+        //extraLive();//Adiciona uma vida nova caso tenha mais de X pontos
         yield return new WaitForSeconds(animationDelay);
         
         //Debug.Log("Level WON");        
@@ -98,10 +94,9 @@ public class GameMaster : MonoBehaviour {
         Debug.Log("GAME OVER");
 
         //para iniciar com 3 vidas após o game over
-        _remainingLives = maxLives;
+        _remainingLives = 3;
 
         //inicia a pontuação
-        pontuation = startingpontuation;
         pontuation = 0;
     }
     #endregion
@@ -149,6 +144,7 @@ public class GameMaster : MonoBehaviour {
     #region KillPlayer
     public static void KillPlayer(Player player)// elimina o jogador
     {
+        //Vidas do player são mostradas na tela atraves do LivesCounterUI
         Destroy(player.gameObject);        
         _remainingLives -= 1; //subtrai 1 vida a cada vez que o metodo killplayer é chamado
         if (_remainingLives <= 0)
@@ -166,17 +162,21 @@ public class GameMaster : MonoBehaviour {
     #region KillEnemy
     public static void KillEnemy(Enemy enemy) // elimina o inimigo
     {
-        gm._KillEnemy(enemy);
+        pontuation += enemy.points;//variável points do enemy script
+        Debug.Log(pontuation);
+        Destroy(enemy.gameObject);
+        Score();
     }
 
     
-    public void _KillEnemy(Enemy _enemy)
-    {
-        pontuation += _enemy.points;//variável points do enemy script
-        Debug.Log(pontuation);
-        Destroy(_enemy.gameObject);
-        Score();
-    }
+    //public void _KillEnemy(Enemy _enemy)
+    //{
+    //    pontuation += _enemy.points;//variável points do enemy script
+    //    Debug.Log(pontuation);
+    //    Destroy(_enemy.gameObject);
+    //    Score();   
+        
+    //}
     #endregion
 
     #region Score
@@ -184,16 +184,11 @@ public class GameMaster : MonoBehaviour {
     {
         //Gerencia os pontos do jogador
         PlayerPrefs.SetInt("Score", pontuation);
-    }
-    #endregion
-
-    #region extraLive
-    //adiciona + 1 quando o jogador fizer X pontos
-    private void extraLive()
-    {
-        if (pontuation >= 4)
+        
+        //adicionado uma vida ao eleminar um inimigo
+        if (pontuation == 4 || pontuation == 8)
         {
-            _remainingLives += 1; 
+            _remainingLives += 1;
         }
     }
     #endregion
