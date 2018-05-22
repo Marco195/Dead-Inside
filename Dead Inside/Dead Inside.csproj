@@ -289,6 +289,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AttackTrigger.cs" />
+    <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\DoorTrigger.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
