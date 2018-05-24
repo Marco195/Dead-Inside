@@ -27,6 +27,7 @@ public class Sound
         src.loop = loop;
     }
 
+    #region ClipManagement
     public void PlayClip()
     {
         src.Play();
@@ -38,6 +39,8 @@ public class Sound
     {
         src.Stop();
     }
+    #endregion
+
 }
 
 public class AudioManager : MonoBehaviour {
@@ -79,12 +82,6 @@ public class AudioManager : MonoBehaviour {
         PlaySound("MainMenu");
     }
     #endregion
-
-    //private void Update()
-    //{
-    //    if (Time.time > f)
-    //        StopSound("MainMenu");
-    //}
 
     #region PlaySound
     public void PlaySound(string _name)

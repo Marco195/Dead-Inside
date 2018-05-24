@@ -33,16 +33,27 @@ public class GameMaster : MonoBehaviour {
         get { return pontuation; }
     }
 
+    #region DestroyGM
+    public static void DestroyGM()
+    {
+        //usado para destruir o obg GM ao clicar em "sair" no game over
+        DestroyImmediate(gm.gameObject);
+    }
+    #endregion
+
     #region Awake
-    private void Awake() //usado para inicializar variaveis, é chamado antes do start
+    //usado para inicializar variaveis, é chamado antes do start
+    private void Awake() 
     {
         if (gm == null)
         {
             gm = this;
+            //mantém o obj _GM para as proximas fazes
             DontDestroyOnLoad(gameObject);
         }
         else
         {
+            //se ja houver um oobj na fase ele destrói
             DestroyImmediate(gameObject);
         }
 
@@ -78,8 +89,7 @@ public class GameMaster : MonoBehaviour {
         //Se P ou esc press. chama a função pause game
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
         {
-                Debug.Log("Pause");
-                PauseGame();
+                Pause();
         }
     }
     #endregion
@@ -90,20 +100,11 @@ public class GameMaster : MonoBehaviour {
         //Coroutine feita para conseguir acessar os objetos de outras fases quando obj GameMaster é instanciado
         GameObject UIOverlay = GameObject.FindGameObjectWithTag("UIOverlay");
         UIOverlay.transform.GetChild(3).gameObject.SetActive(true);
-        //extraLive();//Adiciona uma vida nova caso tenha mais de X pontos
         yield return new WaitForSeconds(animationDelay);
         
         //Debug.Log("Level WON");        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);//proxima fase 
-        //Time.timeScale = 0.0f;
         gm.manager.PlaySound("Background");
-    }
-    #endregion
-
-    #region End
-    public static void End()
-    {
-        gm.EndGame();
     }
     #endregion
 
@@ -124,14 +125,8 @@ public class GameMaster : MonoBehaviour {
 
     #region Pause
     public static void Pause()
-    { 
-        gm.PauseGame();
-    }
-    #endregion
-
-    #region PauseGame
-    public void PauseGame()
-    {   //pauseMenu     
+    {
+        //pauseMenu
         pause = !pause;
         if (pause)
         {
@@ -147,14 +142,14 @@ public class GameMaster : MonoBehaviour {
             UIOverlay.transform.GetChild(4).gameObject.SetActive(false);
             Time.timeScale = 1.0f;
         }
-            
     }
     #endregion
 
     #region RespawnPlayer
+    //Coroutine para tratar o respawn do player 
     public IEnumerator RespawnPlayer()
     {
-        //Você usa uma instrução yield return para retornar cada elemento individualmente.        
+         //dealy para respawn do player     
         yield return new WaitForSeconds(spawnDelay);
 
         //possivel adicionar um som de respawn aqui
@@ -167,8 +162,9 @@ public class GameMaster : MonoBehaviour {
     {
         gm.manager.PlaySound("Death");
         //Vidas do player são mostradas na tela atraves do LivesCounterUI
-        Destroy(player.gameObject);        
-        _remainingLives -= 1; //subtrai 1 vida a cada vez que o metodo killplayer é chamado
+        Destroy(player.gameObject);
+        //subtrai 1 vida a cada vez que o metodo killplayer é chamado
+        _remainingLives -= 1; 
         if (_remainingLives <= 0)
         {
             gm.EndGame();
@@ -206,12 +202,5 @@ public class GameMaster : MonoBehaviour {
         }
     }
     #endregion
-
-    #region DestroyGM
-    public static void DestroyGM()
-    {
-        //usado para destruir o obg GM ao clicar em "sair" no game over
-        DestroyImmediate(gm.gameObject);
-    }
-    #endregion
+    
 }
