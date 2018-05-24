@@ -17,6 +17,7 @@ public class Pontuation : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        //UI dos pontos
         ScoreText.text = "Pontos: " + GameMaster.Points.ToString();
 
     }

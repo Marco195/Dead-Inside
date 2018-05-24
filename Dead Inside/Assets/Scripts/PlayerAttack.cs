@@ -18,9 +18,10 @@ public class PlayerAttack : MonoBehaviour {
         attackTrigger.enabled = false; 
     }
 
+    #region Update
     void Update()
     {
-
+        //só ataca se estiver no ar
         if (Player.instance.isGrounded)
         {
             if (Input.GetKeyDown(KeyCode.Space) && !attacking)
@@ -46,5 +47,6 @@ public class PlayerAttack : MonoBehaviour {
             }
         }
     }
+    #endregion
 
 }

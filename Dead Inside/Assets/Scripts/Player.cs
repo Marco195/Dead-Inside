@@ -36,16 +36,6 @@ public class Player : MonoBehaviour
 
     private bool died = false;
 
-    #region Playerstats Class
-    [SerializeField]
-    private class PlayerStats // classe que lida com os stats do personagem
-    {
-        public int Health = 100;
-    }
-    #endregion   
-
-    private PlayerStats playerStats = new PlayerStats();
-
     #region Awake
     private void Awake()
     {
@@ -100,17 +90,6 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    #region DamagePlayer 
-    public void DamagePlayer(int damage)
-    { // dano ao personagem
-        playerStats.Health -= damage;
-        if (playerStats.Health <= 0)
-        {
-            GameMaster.KillPlayer(this); // chama a função killPLayer da classe gameMaster
-        }
-    }
-    #endregion
-
     #region Die
     public void Die()
     {
@@ -125,21 +104,8 @@ public class Player : MonoBehaviour
     #region HandleMovement
     private void HandleMovement(float horizontal) // Cuida dos movimentos
     {
-        /*if (!this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))//para a animação de correr quando ataca
-        {
-           rb.velocity = new Vector2(horizontal * movementSpeed, rb.velocity.y);
-        }*/
-
-        //if (isGrounded || airControl)
-        //{ // Para a animação de correr quando no ar
-        //  rb.velocity = new Vector2(horizontal * movementSpeed, rb.velocity.y);            
-        //}        
-
-        //rb.velocity = new Vector2(horizontal * movementSpeed, rb.velocity.y);
-
-        //troca a animação de Idle para Walk com base na velocidade
-
-        rb.velocity = new Vector2(horizontal * movementSpeed, rb.velocity.y);//anda
+        //Movimenta o personagem
+        rb.velocity = new Vector2(horizontal * movementSpeed, rb.velocity.y);
 
         if (rb.velocity.y < 0) //usa o RB para detectar quando esta caindo
         {
@@ -174,8 +140,9 @@ public class Player : MonoBehaviour
     #endregion
 
     #region HandleAttacks
-    private void HandleAttacks() // ativa o trigger attack do animator
+    private void HandleAttacks() 
     {
+        // ativa o trigger attack do animator
         if (attack)
         {
             myAnimator.SetTrigger("attack");
@@ -222,6 +189,7 @@ public class Player : MonoBehaviour
     #region ResetValues
     private void ResetValues()
     {
+        //reseta os triggers para cancelar a animação
         jump = false;
 
         attack = false;
@@ -229,11 +197,12 @@ public class Player : MonoBehaviour
     #endregion
 
     #region IsGrounded
+    //função para detectar se o personagem está no chão ou não
     private bool IsGrounded()
     {
         if(rb.velocity.y <= 0)
         {
-            foreach (Transform point in groundPoints)
+            foreach (Transform point in groundPoints)//pega os 3 groundspoint do player 
             {
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(point.position, groundRadius, whatIsGround);
 
@@ -241,7 +210,7 @@ public class Player : MonoBehaviour
                 {
                     if(colliders[i].gameObject != gameObject)
                     {
-                        myAnimator.ResetTrigger("jump");// reseta o trigger da animção de pulo
+                        myAnimator.ResetTrigger("jump");// reseta o trigger da animação de pulo
                         myAnimator.SetBool("land", false); // seta o trigger para iniciar a animação de queda(land)
                         return true;
                     }
@@ -251,4 +220,5 @@ public class Player : MonoBehaviour
         return false;
     }
     #endregion
+
 }
