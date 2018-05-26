@@ -17,8 +17,6 @@ public class GameMaster : MonoBehaviour {
 
     public static bool pause = false;
 
-    public AudioManager manager;
-
     //vidas restantes
     private static int _remainingLives = 3;    
     public static int RemainingLives
@@ -62,13 +60,6 @@ public class GameMaster : MonoBehaviour {
 
         //inicia a pontuação
         pontuation = 0;
-
-        //AudioManager instancia
-        manager = AudioManager.instance;
-        if (manager == null)
-        {
-            Debug.LogError("Não foi encontrado Um manager de audio");
-        }
     }
     #endregion
 
@@ -76,10 +67,10 @@ public class GameMaster : MonoBehaviour {
     private void Start()
     {
         //inicia a musica de fundo das fases
-        gm.manager.PlaySound("Background");
+        AudioManager.instance.PlaySound("Background");
 
         //para a musica do menu
-        gm.manager.StopSound("MainMenu");
+        AudioManager.instance.StopSound("MainMenu");
     }
     #endregion
 
@@ -104,7 +95,7 @@ public class GameMaster : MonoBehaviour {
         
         //Debug.Log("Level WON");        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);//proxima fase 
-        gm.manager.PlaySound("Background");
+        AudioManager.instance.PlaySound("Background");
     }
     #endregion
 
@@ -114,7 +105,7 @@ public class GameMaster : MonoBehaviour {
         GameObject UIOverlay = GameObject.FindGameObjectWithTag("UIOverlay");
         UIOverlay.transform.GetChild(1).gameObject.SetActive(true);
         Debug.Log("GAME OVER");
-        gm.manager.PlaySound("GameOver");// chama o audio de game over
+        AudioManager.instance.PlaySound("GameOver");// chama o audio de game over
         //para iniciar com 3 vidas após o game over
         _remainingLives = 3;
 
@@ -160,7 +151,7 @@ public class GameMaster : MonoBehaviour {
     #region KillPlayer
     public static void KillPlayer(Player player)// elimina o jogador
     {
-        gm.manager.PlaySound("Death");
+        AudioManager.instance.PlaySound("Death");
         //Vidas do player são mostradas na tela atraves do LivesCounterUI
         Destroy(player.gameObject);
         //subtrai 1 vida a cada vez que o metodo killplayer é chamado
@@ -180,7 +171,7 @@ public class GameMaster : MonoBehaviour {
     #region KillEnemy
     public static void KillEnemy(Enemy enemy) // elimina o inimigo
     {
-        gm.manager.PlaySound("ZombieDeath");
+        AudioManager.instance.PlaySound("ZombieDeath");
         pontuation += enemy.points;//variável points do enemy script
         Debug.Log(pontuation);
         Destroy(enemy.gameObject);
@@ -198,7 +189,7 @@ public class GameMaster : MonoBehaviour {
         if (pontuation == 4 || pontuation == 8)
         {
             _remainingLives += 1;
-            gm.manager.PlaySound("ExtraLife");
+            AudioManager.instance.PlaySound("ExtraLife");
         }
     }
     #endregion
