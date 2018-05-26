@@ -190,7 +190,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224090570214801518}
-  - component: {fileID: 114974456727559146}
   - component: {fileID: 95918915334421158}
   m_Layer: 5
   m_Name: LevelWonUI
@@ -845,7 +844,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114974456727559146}
+      - m_Target: {fileID: 0}
         m_MethodName: NextLevel
         m_Mode: 1
         m_Arguments:
@@ -963,17 +962,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Pontos: 0'
---- !u!114 &114974456727559146
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1698029841378914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 021c34ad90c27d64aa5c8377944238ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &222048199197275736
 CanvasRenderer:
   m_ObjectHideFlags: 1

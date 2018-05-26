@@ -179,6 +179,16 @@ public class GameMaster : MonoBehaviour {
     }
     #endregion
 
+    #region KillBoss
+    public static void KillBoss(Boss boss) // elimina o inimigo
+    {
+        AudioManager.instance.PlaySound("ZombieDeath");
+        pontuation += boss.points;//variável points do enemy script
+        Destroy(boss.gameObject);
+        Score();
+    }
+    #endregion
+
     #region Score
     static void Score()
     {

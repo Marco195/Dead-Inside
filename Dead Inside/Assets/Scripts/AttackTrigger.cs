@@ -5,14 +5,18 @@ using UnityEngine;
 public class AttackTrigger : MonoBehaviour {
 
     private bool kill = true;
-    //private int dmg = 50;
+    private int dmg = 50;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.isTrigger  !=  true && collision.CompareTag("Enemy"))
+        if(collision.isTrigger  !=  true && collision.CompareTag("Boss"))
         {
-            collision.SendMessage("Die", kill);
-            //collision.SendMessage("Die", dmg);
+            collision.SendMessage("DamageBoss", dmg);
+        }
+
+        if (collision.isTrigger != true && collision.CompareTag("Enemy"))
+        {
+            collision.SendMessage("Die", kill); 
         }
     }
 

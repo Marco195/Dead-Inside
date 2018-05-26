@@ -13,17 +13,6 @@ public class Enemy : MonoBehaviour {
     private bool died = false;
     public int points = 1;
 
-    //vida do inimigo
-    private int curHealth;
-    private int maxHealth = 100;
-
-    #region Awake
-    private void Awake()
-    {
-        curHealth = maxHealth;
-    }
-    #endregion
-
     #region Start
     void Start () {
 
@@ -61,12 +50,6 @@ public class Enemy : MonoBehaviour {
 
         rb.velocity = myVel;
 
-        if (curHealth <=0)
-        {
-            //mata o inimigo
-            Die();
-        }
-
 	}
     #endregion
 
@@ -77,15 +60,8 @@ public class Enemy : MonoBehaviour {
     {
         if (collision.isTrigger != true && collision.CompareTag("Player"))
         {
-            collision.SendMessage("Die", kill);
+            GameMaster.KillPlayer(Player.instance);
         }
-    }
-    #endregion
-
-    #region DamageEnemy
-    public void DamageEnemy(int damage)
-    {
-        curHealth -= damage;
     }
     #endregion
 
