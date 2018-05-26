@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour {
 
     #region Start
     void Start () {
+
         myTransf = this.transform;
 
         rb = this.GetComponent<Rigidbody2D>();

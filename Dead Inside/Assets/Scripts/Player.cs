@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
     #region Awake
     private void Awake()
     {
-        //Singleton
+        //Singleton mesma coisa feita no awake do GM
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -134,7 +134,6 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))// Attack key cap
         {
             attack = true;
-            //rb.velocity = Vector2.zero;
         }
     }
     #endregion

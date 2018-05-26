@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour {
+    //cuida da animação de  ataque e condições para atacar
 
     private bool attacking = false;
 

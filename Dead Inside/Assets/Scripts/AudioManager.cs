@@ -3,6 +3,7 @@
 [System.Serializable]
 public class Sound
 {
+
     public string name;
     public AudioClip clip;    
 
@@ -28,6 +29,7 @@ public class Sound
     }
 
     #region ClipManagement
+    //Usado no play sound
     public void PlayClip()
     {
         src.Play();
@@ -35,6 +37,7 @@ public class Sound
         src.pitch = pitch * (1 + Random.Range(-randomPitch / 2f, randomPitch / 2f));
     }
 
+    //usado no stopSound
     public void StopClip()
     {
         src.Stop();
@@ -78,8 +81,6 @@ public class AudioManager : MonoBehaviour {
             //componente de Audio Source
             sounds[i].SetSource(_go.AddComponent<AudioSource>());
         }
-
-        PlaySound("MainMenu");
     }
     #endregion
 

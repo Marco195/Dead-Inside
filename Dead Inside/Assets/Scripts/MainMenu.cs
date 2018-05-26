@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
+
+    private void Start()
+    {
+        AudioManager.instance.PlaySound("MainMenu");
+
+        AudioManager.instance.StopSound("Background");
+    }
+
     public void PlayGame()
     {
         Time.timeScale = 1.0f;
