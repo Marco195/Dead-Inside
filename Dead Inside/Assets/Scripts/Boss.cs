@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour {
 
+    //instancia do boss
     public static Boss instance;
 
     public LayerMask enemyMask;
@@ -24,7 +25,7 @@ public class Boss : MonoBehaviour {
     {
         curHealth = maxHealth;
 
-        //Singleton mesma coisa feita no awake do GM
+        //destroi a instância do boss caso ja exista
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -36,8 +37,6 @@ public class Boss : MonoBehaviour {
     #region Start
     void Start()
     {
-        Debug.Log(curHealth);
-
         myTransf = this.transform;
 
         rb = this.GetComponent<Rigidbody2D>();
@@ -93,7 +92,6 @@ public class Boss : MonoBehaviour {
     public void DamageBoss(int damage)
     {
         curHealth -= damage;
-        Debug.Log(Boss.instance.curHealth);
 
         if (curHealth <= 0)//mata o boss se a vida dele chegar a 0
         {

@@ -95,8 +95,6 @@ public class AudioManager : MonoBehaviour {
                 return;
             }
         }
-        //sem som com o nome igual a _name
-        Debug.LogWarning("Som não encontrado, " + _name);
     }
     #endregion
 
@@ -111,8 +109,6 @@ public class AudioManager : MonoBehaviour {
                 return;
             }
         }
-        //sem som com o nome igual a _name
-        Debug.LogWarning("Som não encontrado, " + _name);
     }
     #endregion
 }

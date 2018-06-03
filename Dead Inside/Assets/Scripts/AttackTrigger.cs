@@ -9,8 +9,10 @@ public class AttackTrigger : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.isTrigger  !=  true && collision.CompareTag("Boss"))
+        //cada vez q o collider da arma entrar em contato com o boss
+        if (collision.isTrigger  !=  true && collision.CompareTag("Boss"))
         {
+            //ele recebe 50 de dano
             collision.SendMessage("DamageBoss", dmg);
         }
 

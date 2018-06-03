@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    //singleton
+    //instacia do player
     public static Player instance = null;
 
     private Rigidbody2D rb;
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
     #region Awake
     private void Awake()
     {
-        //Singleton mesma coisa feita no awake do GM
+        //Mesma coisa feita no awake do GM, se não houver uma instância ele cria,se ja houver, ele destrói
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -105,14 +105,14 @@ public class Player : MonoBehaviour
     private void HandleMovement(float horizontal) // Cuida dos movimentos
     {
         //Movimenta o personagem
+        //Horizontal = a própria unity ja tem definido as teclas que movem o personagem na horizontal
         rb.velocity = new Vector2(horizontal * movementSpeed, rb.velocity.y);
+        myAnimator.SetFloat("speed", Mathf.Abs(horizontal));
 
         if (rb.velocity.y < 0) //usa o RB para detectar quando esta caindo
         {
             myAnimator.SetBool("land", true); // seta o trigger land para verdadeiro
-        }
-
-        myAnimator.SetFloat("speed", Mathf.Abs(horizontal));
+        }        
 
         if (isGrounded && jump) //Jump
         {
@@ -156,6 +156,7 @@ public class Player : MonoBehaviour
         //altera o peso dos layers no animator
         if (!isGrounded)
         {
+            //se o player não estiver no chão o layer que terá peso maior será o Air Layer
             myAnimator.SetLayerWeight(1, 1);
         }
         else

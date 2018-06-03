@@ -232,10 +232,11 @@ f013be6c99afade29afd84fe1438c641 Assembly-CSharp.dll:.PlayerAttack
 75cd0c6c744b9733ef29aa6c59ece2b1 Assembly-CSharp.dll:TMPro.Examples.VertexShakeB
 e1ecd31084d88724bd270922c2c81b1a Assembly-CSharp.dll:.CameraFollow
 6826e26f7cc718f870001971f13e79c7 Assembly-CSharp.dll:TMPro.TMP_TextEventHandler
+7af4406ad2257ee485109f3451c4c1b6 Assembly-CSharp.dll:.Boss
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:TMPro.Examples.VertexColorCycler
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AttackTrigger
 020550babdb991365f61c5bffe1f4f52 Assembly-CSharp.dll:TMPro.Examples.TextMeshSpawner
 af7666733efcc974926d7d470e1732a6 Assembly-CSharp.dll:TMPro.Examples.SkewTextExample
-69e6727eed01a56ae15c503a2749b492 Assembly-CSharp.dll:.GameMaster
+24c9fa943e19944a5f05c955b26c7365 Assembly-CSharp.dll:.GameMaster
 34e025057ef78b1bf238460cdf6583a3 Assembly-CSharp.dll:TMPro.Examples.ObjectSpin
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:TMPro.Examples.SimpleScript

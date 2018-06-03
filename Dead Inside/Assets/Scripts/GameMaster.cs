@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameMaster : MonoBehaviour {
     //GameMaster fará a ligação entre das fases (resumindo)
     //IMPORTANTE: Deve haver apenas um GM para todas as fases existentes
+
+    //Instancia do _GM
     public static GameMaster gm;
     
     //variaveis relacionadas ao respawn do player
@@ -140,15 +142,16 @@ public class GameMaster : MonoBehaviour {
     //Coroutine para tratar o respawn do player 
     public IEnumerator RespawnPlayer()
     {
-         //dealy para respawn do player     
+         //delay para respawn do player     
         yield return new WaitForSeconds(spawnDelay);
 
-        //possivel adicionar um som de respawn aqui
+        //Cria um clone do prefab do player, mas não mantém dois Prefabs ao mesmo tempo
         Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
     }
     #endregion
 
     #region KillPlayer
+    //Vidas do player são mostradas na tela atraves do LivesCounterUI
     public static void KillPlayer(Player player)// elimina o jogador
     {
         AudioManager.instance.PlaySound("Death");

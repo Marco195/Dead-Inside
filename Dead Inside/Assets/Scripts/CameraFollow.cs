@@ -22,7 +22,7 @@ public class CameraFollow : MonoBehaviour {
     #region Start
     void Start () {
 
-        player = GameObject.FindGameObjectWithTag("Player"); // atribui o obj da unity com a tag player a variavel
+        player = GameObject.FindGameObjectWithTag("Player"); // atribui o Game Object com a tag player
 
 	}
     #endregion
@@ -36,6 +36,7 @@ public class CameraFollow : MonoBehaviour {
            return;
         }
         
+        //pega a posição X e Y do player
         float posX = Mathf.SmoothDamp(transform.position.x, player.transform.position.x, ref velocity.x, smoothTimeX);
         float posY = Mathf.SmoothDamp(transform.position.y, player.transform.position.y, ref velocity.y, smoothTimeY);
 
@@ -43,7 +44,9 @@ public class CameraFollow : MonoBehaviour {
 
         if (bounds)//se houver limites
         {
+            //é setado um valor maximo para X, y e Z
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, minCameraPos.x, maxCameraPos.x),
+            //seta um valor entre um float maximo e um float minimo
             Mathf.Clamp(transform.position.y, minCameraPos.y, maxCameraPos.y),
             Mathf.Clamp(transform.position.z, minCameraPos.z, maxCameraPos.z));
         }
