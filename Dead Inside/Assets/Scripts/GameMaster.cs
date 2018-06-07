@@ -113,6 +113,8 @@ public class GameMaster : MonoBehaviour {
 
         //inicia a pontuação
         pontuation = 0;
+
+        AudioManager.instance.PlaySound("Background");
     }
     #endregion
 

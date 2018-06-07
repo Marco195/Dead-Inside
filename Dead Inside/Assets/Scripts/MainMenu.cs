@@ -8,8 +8,6 @@ public class MainMenu : MonoBehaviour {
 
     private void Start()
     {
-        AudioManager.instance.PlaySound("MainMenu");
-
         AudioManager.instance.StopSound("Background");
     }
 

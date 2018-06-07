@@ -81,6 +81,8 @@ public class AudioManager : MonoBehaviour {
             //componente de Audio Source
             sounds[i].SetSource(_go.AddComponent<AudioSource>());
         }
+        //toca a musica do mainMenu
+        PlaySound("MainMenu");
     }
     #endregion
 
