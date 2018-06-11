@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Text))]
 public class LivesCounterUI : MonoBehaviour {
-    //contador de vidas na UI
+    //contador de vidas na UI, atualiza as vidas em tempo real
     [SerializeField]
     private Text livesText;
 

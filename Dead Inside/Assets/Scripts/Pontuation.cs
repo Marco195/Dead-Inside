@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Text))]
 public class Pontuation : MonoBehaviour {
-
+    //atualiza os pontos na UI em tempo Real
     private Text ScoreText;
 
     //Awake is called when the script instance is being loaded. 

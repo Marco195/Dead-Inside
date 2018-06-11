@@ -10,6 +10,8 @@ public class GameOverUI : MonoBehaviour {
         //Volta ao menu inicial e destroi obj GameMaster
         SceneManager.LoadScene(0);
         GameMaster.DestroyGM();
+
+        AudioManager.instance.PlaySound("MainMenu");
     }
 
     public void Retry()
